@@ -115,7 +115,7 @@ async fn handler(
         }
     } else {
         // PR OPEN or Trigger phrase: create a new comment
-        match issues.create_comment(pull_number, "Hello, I am a [code review bot](https://github.com/flows-network/github-pr-summary/) on [flows.network](https://flows.network/).\n\nIt could take a few minutes for me to analyze this PR. Relax, grab a cup of coffee and check back later. Thanks!").await {
+        match issues.create_comment(pull_number, "Hello, I am a [code review bot](#).\n\nIt could take a few minutes for me to analyze this PR. Relax, grab a cup of coffee and check back later. Thanks!").await {
             Ok(comment) => {
                 comment_id = comment.id;
             }
@@ -177,7 +177,7 @@ async fn handler(
                 reviews_text.push_str("\n");
             }
             let mut review = String::new();
-            review.push_str(&format!("### [Commit {commit_hash}](https://github.com/WasmEdge/WasmEdge/pull/{pull_number}/commits/{commit_hash})\n"));
+            review.push_str(&format!("##### [Commit {commit_hash}](https://github.com/TimeSpeakApp/server/pull/{pull_number}/commits/{commit_hash})\n"));
             review.push_str(&r.choice);
             review.push_str("\n\n");
             reviews.push(review);
@@ -185,7 +185,7 @@ async fn handler(
     }
 
     let mut resp = String::new();
-    resp.push_str("Hello, I am a [code review bot](https://github.com/flows-network/github-pr-summary/) on [flows.network](https://flows.network/). Here are my reviews of code commits in this PR.\n\n------\n\n");
+    resp.push_str("Hello, I am a [code review bot](#). Here are my reviews of code commits in this PR.\n\n------\n\n");
     if reviews.len() > 1 {
         let co = ChatOptions {
             model: MODEL,
